@@ -38,7 +38,7 @@ struct ItemData: Codable{
     let hardDiskSize: String?
 
     enum CodingKeys: String, CodingKey {
-        case color
+        case color 
         case capacity
         case price
         case capacityGB = "capacity GB"
@@ -50,4 +50,5 @@ struct ItemData: Codable{
         case cpuModel = "CPU model"
         case hardDiskSize = "Hard disk size"
     }
+    
 }

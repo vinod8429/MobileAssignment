@@ -7,7 +7,7 @@
 
 import Foundation
 
-
+@MainActor
 class ContentViewModel : ObservableObject {
     
     private let apiService = ApiService()
@@ -15,9 +15,11 @@ class ContentViewModel : ObservableObject {
     @Published var data: [DeviceData]? = []
 
     func fetchAPI() {
+        print("API CALL") //for de-bugging
         apiService.fetchDeviceDetails(completion: { item in
             self.data = item
         })
+        print("API Call done") //for de-bugging
     }
     
     func navigateToDetail(navigateDetail: DeviceData) {
