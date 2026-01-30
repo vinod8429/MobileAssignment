@@ -10,12 +10,24 @@ import SwiftUI
 struct ContentView: View {
     @StateObject private var viewModel = ContentViewModel()
     @State private var path: [DeviceData] = [] // Navigation path
+    // Search Feature
+    @State var searchText: String = ""
+    
+    
+    var filteredDevices: [DeviceData] {
+        guard let devices = viewModel.data else { return [] }
+        
+        if searchText.isEmpty {
+            return devices
+        }
+        return devices.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+    }
 
     var body: some View {
         NavigationStack(path: $path) {
             Group {
-                if let computers = viewModel.data, !computers.isEmpty {
-                    DevicesList(devices: computers) { selectedComputer in
+                if viewModel.data != nil && !filteredDevices.isEmpty {
+                    DevicesList(devices: filteredDevices) { selectedComputer in
                         viewModel.navigateToDetail(navigateDetail: selectedComputer)
                     }
                 } else {
@@ -27,6 +39,7 @@ struct ContentView: View {
                 path.append(navigate!)
             })
             .navigationTitle("Devices")
+            .searchable(text: $searchText, prompt: "Search By Name")
             .navigationDestination(for: DeviceData.self) { computer in
                 DetailView(device: computer)
             }
