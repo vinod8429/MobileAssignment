@@ -51,4 +51,19 @@ struct ItemData: Codable{
         case hardDiskSize = "Hard disk size"
     }
     
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.color = try container.decodeIfPresent(String.self, forKey: .color)
+        self.capacity = try container.decodeIfPresent(String.self, forKey: .capacity)
+        self.price = try container.decodeIfPresent(Double.self, forKey: .price)
+        self.capacityGB = try container.decodeIfPresent(Int.self, forKey: .capacityGB)
+        self.screenSize = try container.decodeIfPresent(Double.self, forKey: .screenSize)
+        self.description = try container.decodeIfPresent(String.self, forKey: .description)
+        self.generation = try container.decodeIfPresent(String.self, forKey: .generation)
+        self.strapColour = try container.decodeIfPresent(String.self, forKey: .strapColour)
+        self.caseSize = try container.decodeIfPresent(String.self, forKey: .caseSize)
+        self.cpuModel = try container.decodeIfPresent(String.self, forKey: .cpuModel)
+        self.hardDiskSize = try container.decodeIfPresent(String.self, forKey: .hardDiskSize)
+    }
+    
 }

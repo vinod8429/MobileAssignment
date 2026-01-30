@@ -18,7 +18,7 @@ struct DetailView: View {
             
             if let data = device.data {
                 if let price = data.price {
-                    Text("Price: $\(price, specifier: "%.2f")")
+                    Text("Price: $\(price)")
                         .font(.title2)
                         .padding(.top, 8)
                 }
@@ -32,6 +32,23 @@ struct DetailView: View {
                     Text("Description: \(description)")
                         .padding(.top, 8)
                 }
+                
+                if let strapColour = data.strapColour {
+                    Text("Strap Colour: \(strapColour)")
+                }
+                
+                if let color = data.color {
+                    Text("colors : \(color)")
+                }
+                
+                if let generation = data.generation {
+                    Text("Generation : \(generation)")
+                }
+                
+                if data.color == nil {
+                    Text("Color not available")
+                }
+                
             }
 
             Spacer()
